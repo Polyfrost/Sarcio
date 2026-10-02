@@ -4,6 +4,7 @@ import it.unimi.dsi.fastutil.bytes.ByteArrays;
 import net.fabricmc.api.ModInitializer;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.server.MinecraftServer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -34,5 +35,10 @@ public class SarcioMod implements ModInitializer {
 				LOGGER.warn("Could not register Sarcio options with Celeritas", exception);
 			}
 		}
+	}
+
+	public static boolean isFullbright() {
+		MinecraftServer server = MinecraftServer.getInstance();
+		return server == null || !server.isOnSameThread();
 	}
 }
