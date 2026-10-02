@@ -1,23 +1,23 @@
 package dev.rdh.sarcio.mixin.bugfix.render;
 
-import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.ref.LocalFloatRef;
-import dev.rdh.sarcio.SarcioMod;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.resource.Identifier;
 import net.minecraft.util.math.BlockPos;
-import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.HitResult;
+
+import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(GameRenderer.class)
@@ -42,13 +42,8 @@ public class GameRendererMixin {
         blue.set(Math.min(blue.get(), 1.0F));
     }
 
-    @WrapOperation(method = "transformCamera", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/world/ClientWorld;rayTrace(Lnet/minecraft/util/math/Vec3d;Lnet/minecraft/util/math/Vec3d;)Lnet/minecraft/world/HitResult;"))
-    private HitResult sarcio$ignoreCollisionlessBlocks(ClientWorld instance, Vec3d start, Vec3d end, Operation<HitResult> original) {
-        SarcioMod.cameraRayTrace = true;
-        try {
-            return instance.rayTrace(start, end, false, true, false);
-        } finally {
-            SarcioMod.cameraRayTrace = false;
-        }
+    @Redirect(method = "transformCamera", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/world/ClientWorld;rayTrace(Lnet/minecraft/util/math/Vec3d;Lnet/minecraft/util/math/Vec3d;)Lnet/minecraft/world/HitResult;"))
+    private HitResult sarcio$ignoreCollisionlessBlocks(ClientWorld instance, Vec3d from, Vec3d to) {
+        return instance.rayTrace(from, to, false, true, false);
     }
 }
