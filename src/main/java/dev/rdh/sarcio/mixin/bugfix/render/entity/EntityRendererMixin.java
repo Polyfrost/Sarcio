@@ -16,4 +16,9 @@ public class EntityRendererMixin {
         GlStateManager.blendFunc(770, 771);
         GlStateManager.enableAlphaTest();
     }
+
+    @Inject(method = "renderOnFire", at = @At("RETURN"))
+    private void sarcio$resetBlending(CallbackInfo ci) {
+        GlStateManager.disableBlend();
+    }
 }

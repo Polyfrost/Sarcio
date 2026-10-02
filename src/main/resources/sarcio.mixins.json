@@ -56,7 +56,6 @@
   "client": [
     "allocation_rate.entity.EntityDisplayNameMixin",
     "allocation_rate.render.ParticleManagerMixin",
-    "allocation_rate.entity.RemoteClientPlayerEntityMixin",
     "allocation_rate.render.TextRendererMixin",
     "allocation_rate.render.AbstractArmorLayerMixin",
     "allocation_rate.render.LivingEntityRendererMixin",
@@ -135,6 +134,7 @@
     "textures.TextureManagerMixin",
     "textures.TextureUtilMixin",
     "textures.HttpTextureMixin",
+    "textures.HttpTextureDownloaderMixin",
     "tweaks.TitleScreenMixin",
     "tweaks.MinecraftMixin",
     "tweaks.ClientPlayNetworkHandlerMixin",

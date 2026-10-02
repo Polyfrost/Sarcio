@@ -23,10 +23,10 @@ public class ClientPlayNetworkHandlerMixin {
         return false;
     }
 
-    @Inject(method = "<init>", at = @At("TAIL"))
+    @Inject(method = "handleLogin", at = @At("TAIL"))
     private void sarcio$clearTitles(CallbackInfo ci) {
         GameGui ingameGUI = Minecraft.getInstance().gui;
-        ingameGUI.setTitles("", "", -1, -1, -1);
+        ingameGUI.setTitles(null, null, -1, -1, -1);
         ingameGUI.resetTitleTimes();
     }
 }
