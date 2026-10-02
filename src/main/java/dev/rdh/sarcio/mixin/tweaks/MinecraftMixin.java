@@ -1,6 +1,8 @@
 package dev.rdh.sarcio.mixin.tweaks;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.render.ProgressRenderer;
+import net.minecraft.client.world.ClientWorld;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.twitch.ErrorTwitchStream;
 import net.minecraft.client.twitch.TwitchStream;
@@ -33,5 +35,10 @@ public class MinecraftMixin {
     })
     private boolean sarcio$removeStreamCalls(TwitchStream instance) {
         return false;
+    }
+
+    @WrapWithCondition(method = "setWorld(Lnet/minecraft/client/world/ClientWorld;Ljava/lang/String;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/ProgressRenderer;progressStage(Ljava/lang/String;)V"))
+    private boolean sarcio$skipWorldSwapProgress(ProgressRenderer instance, String message, ClientWorld world) {
+        return world == null;
     }
 }

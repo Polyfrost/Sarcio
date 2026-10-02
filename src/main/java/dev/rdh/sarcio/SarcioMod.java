@@ -10,6 +10,7 @@ import org.apache.logging.log4j.Logger;
 public class SarcioMod implements ModInitializer {
 	public static final Logger LOGGER = LogManager.getLogger();
 	public static final SarcioConfig CONFIG = SarcioConfig.load();
+	public static boolean cameraRayTrace;
 
 	@Override
 	public void onInitialize() {

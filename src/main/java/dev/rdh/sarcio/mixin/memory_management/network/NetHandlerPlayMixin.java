@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.Coerce;
 
 @Mixin({ClientPlayNetworkHandler.class, ServerPlayNetworkHandler.class})
 public class NetHandlerPlayMixin {
-	@WrapMethod(method = {"handleCustomPayload", "processVanilla250Packet"})
+	@WrapMethod(method = "handleCustomPayload")
 	private void releaseCustomPayload(@Coerce Packet<?> packet, Operation<Void> original) {
 		original.call(packet);
 		PacketByteBuf data = switch (packet) {

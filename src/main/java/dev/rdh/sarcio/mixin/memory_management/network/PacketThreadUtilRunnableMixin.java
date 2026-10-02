@@ -12,11 +12,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(targets = "net.minecraft.network.PacketUtils$48215440")
 abstract class PacketThreadUtilRunnableMixin {
-	@Shadow(remap = false, aliases = "f_54564080") @Final private Packet<?> packet;
+	@Shadow(remap = false) @Final private Packet<?> f_54564080; // packet, unnamed in feather
 
 	@Inject(method = "run", at = @At("HEAD"), cancellable = true)
 	private void dropPacketsWithoutWorld(CallbackInfo ci) {
-		if (Minecraft.getInstance().world == null && !(this.packet instanceof LoginS2CPacket)) {
+		if (Minecraft.getInstance().world == null && !(this.f_54564080 instanceof LoginS2CPacket)) {
 			ci.cancel();
 		}
 	}

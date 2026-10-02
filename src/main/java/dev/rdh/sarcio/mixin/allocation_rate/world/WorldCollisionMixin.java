@@ -5,11 +5,7 @@ import dev.rdh.sarcio.util.EntityQuery;
 import java.util.List;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.state.BlockState;
-import net.minecraft.client.entity.particle.Particle;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.FallingBlockEntity;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.PrimedTntEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.MathHelper;
@@ -66,9 +62,7 @@ abstract class WorldCollisionMixin {
 			}
 		}
 
-		if (!(entity instanceof PrimedTntEntity || entity instanceof FallingBlockEntity || entity instanceof ItemEntity || entity instanceof Particle)) {
-			EntityQuery.addCollisionBoxes((World) (Object) this, entity, box.grown(0.25, 0.25, 0.25), box, boxes);
-		}
+		EntityQuery.addCollisionBoxes((World) (Object) this, entity, box.grown(0.25, 0.25, 0.25), box, boxes);
 
 		return boxes;
 	}
