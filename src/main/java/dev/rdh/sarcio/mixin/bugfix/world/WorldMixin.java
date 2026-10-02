@@ -1,6 +1,7 @@
 package dev.rdh.sarcio.mixin.bugfix.world;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.LightType;
 import net.minecraft.world.World;
@@ -9,7 +10,11 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import java.util.Collection;
+import java.util.List;
 
 @Mixin(World.class)
 public abstract class WorldMixin {
@@ -29,5 +34,11 @@ public abstract class WorldMixin {
     @ModifyExpressionValue(method  = "updateLight", at = {@At(value = "CONSTANT", args = "intValue=17", ordinal = 1), @At(value = "CONSTANT", args = "intValue=17", ordinal = 2)})
     private int setVariableRange(int original) {
         return this.sarcio$range;
+    }
+
+    @SuppressWarnings("SuspiciousMethodCalls")
+    @Redirect(method = "tickEntities", at = @At(value = "INVOKE", target = "Ljava/util/List;removeAll(Ljava/util/Collection;)Z"))
+    private boolean sarcio$hashRemoveAll(List<?> list, Collection<?> removed) {
+        return !removed.isEmpty() && list.removeAll(new ObjectOpenHashSet<>(removed));
     }
 }
