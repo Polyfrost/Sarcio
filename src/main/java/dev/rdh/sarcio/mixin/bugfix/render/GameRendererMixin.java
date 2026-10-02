@@ -2,6 +2,7 @@ package dev.rdh.sarcio.mixin.bugfix.render;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.ref.LocalFloatRef;
+import dev.rdh.sarcio.util.CameraRayEnd;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.render.GameRenderer;
@@ -44,6 +45,6 @@ public class GameRendererMixin {
 
     @Redirect(method = "transformCamera", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/world/ClientWorld;rayTrace(Lnet/minecraft/util/math/Vec3d;Lnet/minecraft/util/math/Vec3d;)Lnet/minecraft/world/HitResult;"))
     private HitResult sarcio$ignoreCollisionlessBlocks(ClientWorld instance, Vec3d from, Vec3d to) {
-        return instance.rayTrace(from, to, false, true, false);
+        return instance.rayTrace(from, new CameraRayEnd(to), false, true, false);
     }
 }
