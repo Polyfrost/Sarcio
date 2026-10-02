@@ -4,6 +4,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.ref.LocalFloatRef;
+import dev.rdh.sarcio.SarcioMod;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.world.ClientWorld;
@@ -43,6 +44,11 @@ public class GameRendererMixin {
 
     @WrapOperation(method = "transformCamera", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/world/ClientWorld;rayTrace(Lnet/minecraft/util/math/Vec3d;Lnet/minecraft/util/math/Vec3d;)Lnet/minecraft/world/HitResult;"))
     private HitResult sarcio$ignoreCollisionlessBlocks(ClientWorld instance, Vec3d start, Vec3d end, Operation<HitResult> original) {
-        return instance.rayTrace(start, end, false, true, false);
+        SarcioMod.cameraRayTrace = true;
+        try {
+            return instance.rayTrace(start, end, false, true, false);
+        } finally {
+            SarcioMod.cameraRayTrace = false;
+        }
     }
 }
