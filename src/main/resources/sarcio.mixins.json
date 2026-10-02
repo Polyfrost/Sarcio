@@ -85,6 +85,7 @@
     "bugfix.gui.AddServerScreenMixin",
     "bugfix.gui.BookEditScreenMixin",
     "bugfix.gui.ScreenMixin",
+    "bugfix.gui.LanguageSelectionListWidgetMixin",
     "bugfix.render.entity.StuckArrowLayerMixin",
     "bugfix.render.entity.CreeperChargeLayerMixin",
     "bugfix.render.entity.ItemInHandLayerMixin",
