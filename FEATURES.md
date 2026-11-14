@@ -43,6 +43,7 @@ This is always on, and can't be switched off.
 - `bugfix.gui.connect_text_position`: connecting text stays above the Cancel button.
 - `bugfix.gui.death_screen_clicks`: death screen buttons work right away.
 - `bugfix.gui.deferred_mipmap_reload`: changing mipmaps only reloads once, when you leave video settings.
+- `bugfix.gui.forced_unicode_font`: the unicode font is only used when you ask for it, so English text stays in the default font in Chinese, Japanese and other languages, as in 1.13 and later.
 - `bugfix.gui.hex_tooltips`: colors in advanced tooltips show as proper hex codes.
 - `bugfix.gui.high_potion_levels`: potion levels above IV show in the inventory.
 - `bugfix.gui.ignore_unicode_keys`: fixes a crash from keybinds on unusual keys.

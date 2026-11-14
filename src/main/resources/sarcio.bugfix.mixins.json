@@ -86,7 +86,8 @@
     "render.HttpTextureDownloaderMixin",
     "resourcepacks.CustomResourcePackMetadataMixin",
     "resourcepacks.JsonResourceMetadataMixin",
-    "TickTimerMixin"
+    "TickTimerMixin",
+    "gui.TranslationStorageMixin"
   ],
   "injectors": {
     "defaultRequire": 1
